@@ -9,7 +9,7 @@ React Table doesn't provide any kind of styling, just the basics hooks for creat
 This way, you can apply your favourite libraries to the tables.
 
 ## Requirements
-This repo was created with `create-react-app` with TypeScript.
+This repo was created with `create-react-app` with TypeScript: `npx create-react-app my-app-name-here --template typescript`.
 
 To run this project on your local machine, you need:
 * `yarn` package manager;
