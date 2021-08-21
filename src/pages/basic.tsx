@@ -5,9 +5,15 @@
 import { useMemo } from 'react'
 import { useTable } from 'react-table'
 
+// you just have to use this custom interface
+interface ColumnDetails {
+  [key: string]: string
+}
+
 export const Basic = () => {
 
-    const data = useMemo(
+    // using here the custom interface
+    const data = useMemo<ColumnDetails[]>(
         () => [
           {
             col1: 'Hello',
@@ -25,15 +31,14 @@ export const Basic = () => {
         []
       )
     
-    // here I have to find a fix to avoid using `any`
-      const columns:any = useMemo(
+      const columns = useMemo(
         () => [
           {
-            Header: 'Col 1 header',
+            Header: 'Column 1',
             accessor: 'col1',
           },
           {
-            Header: 'Colu 2 header',
+            Header: 'Column 2',
             accessor: 'col2',
           },
         ],
@@ -94,5 +99,4 @@ export const Basic = () => {
           </tbody>
         </table>
       )
-
 }
