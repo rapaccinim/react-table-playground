@@ -4,6 +4,7 @@ import { Basic } from "./pages/basic"
 import { Pagination } from "./pages/pagination"
 import { Sorting } from "./pages/sorting"
 import { PaginationAndSorting } from "./pages/pagination-and-sorting"
+import { Filter } from "./pages/filter"
 import './App.css';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Link to="/pagination">Pagination</Link>
         <Link to="/sorting">Sorting</Link>
         <Link to="/pagination-and-sorting">Pagination + Sorting</Link>       
+        <Link to="/filter">Filter</Link>   
       </header>
       <div className="app-container">
           <Switch>
@@ -34,6 +36,9 @@ const App = () => {
             </Route>
             <Route path='/pagination-and-sorting'>
               <PaginationAndSorting/>
+            </Route>
+            <Route path='/filter'>
+              <Filter/>
             </Route>
           </Switch>
       </div>
