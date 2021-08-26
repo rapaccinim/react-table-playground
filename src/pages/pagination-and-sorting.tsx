@@ -3,6 +3,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTable, usePagination, useSortBy } from 'react-table'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import makeData from '../components/makeData'
 
@@ -26,6 +28,13 @@ const Styles = styled.div`
       border-right: 1px solid black;
       :last-child {
         border-right: 0;
+      }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        svg {
+            vertical-align: middle;
+          }
       }
     }
   }
@@ -105,10 +114,13 @@ function Table({ columns, data }: { columns: any, data: any }) {
                                 // Add the sorting props to control sorting. For this example
                                 // we can add them into the header props
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}
+                                    <span>{column.render('Header')}</span>
                                     {/* Add a sort direction indicator */}
                                     <span>
-                                        {column.canSort && column.isSorted && (column.isSortedDesc ? ' 🔽 ' : ' 🔼 ')
+                                        {column.canSort && 
+                                            column.isSorted
+                                            ?  (column.isSortedDesc && <ArrowDropDownIcon/>) || (!column.isSortedDesc && <ArrowDropUpIcon/>)
+                                            : <ArrowDropDownIcon color="disabled"/>
                                         }
                                     </span>
                                 </th>

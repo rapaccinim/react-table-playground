@@ -13,10 +13,17 @@ This repo was created with `create-react-app` with TypeScript: `npx create-react
 
 To run this project on your local machine, you need:
 * `yarn` package manager;
-* `react-table` library.
+* `react-table` library;
+* `styled-components` library;
+* `@material-ui/core` library;
+* `@material-ui/icons` library;
+* `namor` library;
+* `match-sort` library.
 
 ## Installation
 Just run `yarn add react-table`.
+
+TBD add details for installing all the dependencies.
 
 ## Usage
 TBD
