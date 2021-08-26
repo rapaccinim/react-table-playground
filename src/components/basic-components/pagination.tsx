@@ -1,10 +1,13 @@
-// the first template code is taken from tannerlisley's code available here: https://github.com/tannerlinsley/react-table/tree/master/examples/pagination/src 
+/**
+ * A basic example of usePagination implementation for having a defined number of rows.
+ * Template coming from tannerlisley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/pagination/src 
+ */
 
 import React from 'react'
 import styled from 'styled-components'
 import { useTable, usePagination } from 'react-table'
   
-import makeData from '../components/makeData'
+import makeData from '../makeData'
 
 const Styles = styled.div`
   padding: 1rem;

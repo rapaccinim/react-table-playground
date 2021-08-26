@@ -1,3 +1,7 @@
+/**
+ * A custom example of useFilters implementation for filtering columns with input boxes
+ */
+
 import React from "react";
 import styled from "styled-components";
 import { useTable, useFilters, Column, Row } from "react-table";

@@ -1,102 +1,78 @@
 /**
- * This is the dedicated component for applying the basic useTable hook from React Table.
+ * Page with basic examples.
  */
 
-import { useMemo } from 'react'
-import { useTable } from 'react-table'
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+import { SimpleTable } from '../components/basic-components/simple-table';
+import { Sorting } from '../components/basic-components/sorting';
+import { Pagination } from '../components/basic-components/pagination';
 
-// you just have to use this custom interface
-interface ColumnDetails {
-  [key: string]: string
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+});
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>{children}</Box>
+      )}
+    </div>
+  );
 }
 
 export const Basic = () => {
 
-    // using here the custom interface
-    const data = useMemo<ColumnDetails[]>(
-        () => [
-          {
-            col1: 'Hello',
-            col2: 'World',
-          },
-          {
-            col1: 'react-table',
-            col2: 'rocks',
-          },
-          {
-            col1: 'whatever',
-            col2: 'you want',
-          },
-        ],
-        []
-      )
-    
-      const columns = useMemo(
-        () => [
-          {
-            Header: 'Column 1',
-            accessor: 'col1',
-          },
-          {
-            Header: 'Column 2',
-            accessor: 'col2',
-          },
-        ],
-        []
-      )
-    
-      const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-      } = useTable({ columns, data })
-    
-      return (
-        <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th
-                    {...column.getHeaderProps()}
-                    style={{
-                      borderBottom: 'solid 3px red',
-                      background: 'aliceblue',
-                      color: 'black',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {column.render('Header')}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row)
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        style={{
-                          padding: '10px',
-                          border: 'solid 1px gray',
-                          background: 'papayawhip',
-                        }}
-                      >
-                        {cell.render('Cell')}
-                      </td>
-                    )
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      )
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Paper className={classes.root}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab label="Basic Table"/>
+        <Tab label="Basic Sorting" />
+        <Tab label="Basic Pagination" />
+      </Tabs>
+      <TabPanel value={value} index={0}>
+        <SimpleTable/>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Sorting/>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Pagination/>
+      </TabPanel>
+    </Paper>
+  );
 }

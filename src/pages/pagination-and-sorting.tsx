@@ -1,12 +1,13 @@
-// mixing the two pagination and sorting features
+/**
+ * A custom example with pagination + sorting implementation
+ */
 
-import React from 'react'
-import styled from 'styled-components'
-import { useTable, usePagination, useSortBy } from 'react-table'
+import React from 'react';
+import styled from 'styled-components';
+import { useTable, usePagination, useSortBy } from 'react-table';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-
-import makeData from '../components/makeData'
+import makeData from '../components/makeData';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -41,7 +42,8 @@ const Styles = styled.div`
   .pagination {
     padding: 0.5rem;
   }
-`
+`;
+
 // TBD: change the any type from columns and data
 function Table({ columns, data }: { columns: any, data: any }) {
     // Use the state and functions returned from useTable to build your UI
@@ -141,9 +143,6 @@ function Table({ columns, data }: { columns: any, data: any }) {
                     })}
                 </tbody>
             </table>
-            {
-            }
-
         </>
     )
 }

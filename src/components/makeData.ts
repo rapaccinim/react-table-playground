@@ -1,4 +1,7 @@
-// this code is taken from tannerlisley's code available here: https://github.com/tannerlinsley/react-table/tree/master/examples/pagination/src 
+/**
+ * Useful component for creating random data.
+ * Template coming from tannerlisley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/pagination/src 
+ */
 
 import namor from 'namor'
 

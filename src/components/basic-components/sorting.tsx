@@ -1,8 +1,13 @@
+/**
+ * A basic example of useSortBy implementation for sorting columns.
+ * Template coming from tannerlisley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/sorting
+ */
+
 import React from 'react'
 import styled from 'styled-components'
 import { useTable, useSortBy } from 'react-table'
 
-import makeData from '../components/makeData'
+import makeData from '../makeData'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -149,7 +154,7 @@ export const Sorting = () => {
     []
   )
 
-  const data = React.useMemo(() => makeData(100), [])
+  const data = React.useMemo(() => makeData(50), [])
 
   return (
     <Styles>

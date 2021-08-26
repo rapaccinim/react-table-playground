@@ -1,5 +1,5 @@
-# React Table Playground
-Playing with React Table to understand how I can apply this utility to one of my projects.
+# React Table Playground in TypeScript
+Playing with React Table and TypeScript to understand how I can apply this utility to one of my projects.
 
 ## About React Table
 [React Table](https://react-table.tanstack.com/) is a *headless* table library for React.
@@ -18,7 +18,6 @@ To run this project on your local machine, you need:
 * `@material-ui/core` library;
 * `@material-ui/icons` library;
 * `namor` library;
-* `match-sort` library.
 
 ## Installation
 Just run `yarn add react-table`.

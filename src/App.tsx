@@ -1,26 +1,49 @@
+/**
+ * Main app component.
+ */
+
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { MainPage } from "./pages/main";
 import { Basic } from "./pages/basic"
-import { Pagination } from "./pages/pagination"
-import { Sorting } from "./pages/sorting"
+import { Pagination } from "./components/basic-components/pagination"
+import { Sorting } from "./components/basic-components/sorting"
 import { PaginationAndSorting } from "./pages/pagination-and-sorting"
 import { Filter } from "./pages/filter"
-import './App.css';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import styled from "styled-components";
 
-const App = () => {
+const MenuLinks = styled.div`
+  & * {
+    display: inline-block;
+    padding: 20px;
+  }
+`
+
+const AppContainer = styled.div`
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+export const App = () => {
   return (
     <Router>
-      <header className="app-header">
-        <img src={process.env.PUBLIC_URL + "/assets/react-table-logo.svg"} className="app-header__logo" />
-        <div>React Table playground</div>
-        <Link to="/">Home</Link>
-        <Link to="/basic">Basic</Link>
-        <Link to="/pagination">Pagination</Link>
-        <Link to="/sorting">Sorting</Link>
-        <Link to="/pagination-and-sorting">Pagination + Sorting</Link>       
-        <Link to="/filter">Filter</Link>   
-      </header>
-      <div className="app-container">
+      <AppBar position="static" color="transparent">
+      <Toolbar>
+        <Link to="/">
+          <img alt="React Table and TypeScript logo" src={process.env.PUBLIC_URL + "/assets/react-table-and-typescript-logo.svg"} className="app-header__logo" />
+        </Link>
+        <MenuLinks>
+          <Link to="/basic">Basic Examples</Link>
+          <Link to="/pagination-and-sorting">Pagination + Sorting</Link>       
+          <Link to="/filter">Filter</Link>   
+        </MenuLinks>
+        </Toolbar>
+      </AppBar>
+      <AppContainer>
           <Switch>
             <Route exact path='/'>
               <MainPage/>
@@ -41,9 +64,7 @@ const App = () => {
               <Filter/>
             </Route>
           </Switch>
-      </div>
+      </AppContainer>
     </Router>
   );
 }
-
-export default App;
