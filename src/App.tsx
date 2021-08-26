@@ -3,6 +3,7 @@ import { MainPage } from "./pages/main";
 import { Basic } from "./pages/basic"
 import { Pagination } from "./pages/pagination"
 import { Sorting } from "./pages/sorting"
+import { PaginationAndSorting } from "./pages/pagination-and-sorting"
 import './App.css';
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
         <Link to="/basic">Basic</Link>
         <Link to="/pagination">Pagination</Link>
         <Link to="/sorting">Sorting</Link>
+        <Link to="/pagination-and-sorting">Pagination + Sorting</Link>       
       </header>
       <div className="app-container">
           <Switch>
@@ -29,6 +31,9 @@ const App = () => {
             </Route>
             <Route path='/sorting'>
               <Sorting/>
+            </Route>
+            <Route path='/pagination-and-sorting'>
+              <PaginationAndSorting/>
             </Route>
           </Switch>
       </div>
