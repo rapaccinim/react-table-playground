@@ -9,6 +9,7 @@ import { Pagination } from "./components/basic-components/pagination"
 import { Sorting } from "./components/basic-components/sorting"
 import { PaginationAndSorting } from "./pages/pagination-and-sorting"
 import { Filter } from "./pages/filter"
+import { PaginationSortingFilter } from "./pages/pagination-sorting-filter";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import styled from "styled-components";
@@ -39,7 +40,8 @@ export const App = () => {
         <MenuLinks>
           <Link to="/basic">Basic Examples</Link>
           <Link to="/pagination-and-sorting">Pagination + Sorting</Link>       
-          <Link to="/filter">Filter</Link>   
+          <Link to="/filter">Filter</Link>
+          <Link to="/pagination-sorting-filter">Pagination + Sorting + Filter</Link>     
         </MenuLinks>
         </Toolbar>
       </AppBar>
@@ -62,6 +64,9 @@ export const App = () => {
             </Route>
             <Route path='/filter'>
               <Filter/>
+            </Route>
+            <Route path='/pagination-sorting-filter'>
+              <PaginationSortingFilter/>
             </Route>
           </Switch>
       </AppContainer>
