@@ -1,5 +1,5 @@
 /**
- * Page with basic examples.
+ * Page with React Table basic examples implemented TypeScript.
  */
 
 import React from 'react'
@@ -24,7 +24,7 @@ interface TabPanelProps {
   value: any;
 }
 
-function TabPanel(props: TabPanelProps) {
+const TabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
 
   return (

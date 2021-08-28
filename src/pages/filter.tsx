@@ -1,67 +1,15 @@
 /**
- * A custom example of useFilters implementation for filtering columns with input boxes
+ * React Table library example of filtering feature implemented in TypeScript.
+ * JS basic input examples are coming from tannerlinsley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/filtering
  */
 
 import React from "react";
-import styled from "styled-components";
-import { useTable, useFilters, Column, Row } from "react-table";
+import { useTable, useFilters, Column, Cell, Row, HeaderGroup } from "react-table";
 import makeData from "../components/makeData";
+import { TableBasicStyles } from "../shared/types-interfaces-styles";
+import { DefaultColumnFilter } from "../components/default-column-filter";
 
-const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`;
-
-// use this custom interface for the filter
-interface DefaultColumn {
-    column : {
-        filterValue: any,
-        preFilteredRows: Row[],
-        setFilter: (filterValue:any) =>void
-    }
-}
-
-// Define a default UI for filtering
-const DefaultColumnFilter = ({
-  column: { filterValue, preFilteredRows, setFilter }
-}:DefaultColumn) => {
-  return (
-    <input
-      value={filterValue || ""}
-      onChange={(e) => {
-        setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
-      }}
-      placeholder="Search..."
-    />
-  );
-}
-
-// Our table component
-const Table = ({ columns, data } : { columns:Column[], data:any[] }) => {
+const Table = ({ columns, data } : { columns:Column[], data:string[] }) => {
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -86,17 +34,15 @@ const Table = ({ columns, data } : { columns:Column[], data:any[] }) => {
     useFilters // useFilters!
   );
 
-  // We don't want to render all of the rows for this example, so cap
-  // it for this use case
+  // do not render all the rows for this example, just 10 is ok
   const firstPageRows = rows.slice(0, 10);
 
   return (
-    <>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup) => (
+          {headerGroups.map((headerGroup:HeaderGroup<object>) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column:HeaderGroup<object>) => (
                 <th {...column.getHeaderProps()}>
                   {column.render("Header")}
                   {/* Render the columns filter UI */}
@@ -108,11 +54,11 @@ const Table = ({ columns, data } : { columns:Column[], data:any[] }) => {
 
         </thead>
         <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row, i) => {
+          {firstPageRows.map((row:Row<object>) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell:Cell<object, any>) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
@@ -122,7 +68,6 @@ const Table = ({ columns, data } : { columns:Column[], data:any[] }) => {
           })}
         </tbody>
       </table>
-    </>
   );
 }
 
@@ -141,11 +86,11 @@ export const Filter = () => {
     []
   );
 
-  const data = React.useMemo<any[]>(() => makeData(50), []);
+  const data:string[] = React.useMemo<string[]>(() => makeData(50), []);
 
   return (
-    <Styles>
+    <TableBasicStyles>
       <Table columns={columns} data={data} />
-    </Styles>
+    </TableBasicStyles>
   );
 }

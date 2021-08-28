@@ -1,44 +1,15 @@
 /**
- * A basic example of useSortBy implementation for sorting columns.
- * Template coming from tannerlisley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/sorting
+ * React Table library example of sorting feature implemented in TypeScript.
+ * JS basic input examples are coming from tannerlinsley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/sorting
  */
 
 import React from 'react'
-import styled from 'styled-components'
-import { useTable, useSortBy } from 'react-table'
-
+import { useTable, useSortBy, Column, HeaderGroup, Row, Cell } from 'react-table'
+import { TableBasicStyles } from '../../shared/types-interfaces-styles'
 import makeData from '../makeData'
 
-const Styles = styled.div`
-  padding: 1rem;
+const Table = ({ columns, data }:{columns:Column[], data:string[]}) => {
 
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`
-
-function Table({ columns, data }:{columns:any, data:any}) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -62,17 +33,16 @@ function Table({ columns, data }:{columns:any, data:any}) {
     useSortBy
   )
 
-  // We don't want to render all 2000 rows for this example, so cap
-  // it at 20 for this use case
+  // do not render all the rows for this example, just 20 is ok
   const firstPageRows = rows.slice(0, 20)
 
   return (
     <>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
+          {headerGroups.map((headerGroup:HeaderGroup<object>) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column:HeaderGroup<object>) => (
                 // Add the sorting props to control sorting. For this example
                 // we can add them into the header props
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
@@ -80,9 +50,7 @@ function Table({ columns, data }:{columns:any, data:any}) {
                   {/* Add a sort direction indicator */}
                   <span>
                     {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
+                      ? (column.isSortedDesc && ' 🔽') || ' 🔼'
                       : ''}
                   </span>
                 </th>
@@ -92,11 +60,11 @@ function Table({ columns, data }:{columns:any, data:any}) {
         </thead>
         <tbody {...getTableBodyProps()}>
           {firstPageRows.map(
-            (row, i) => {
+            (row:Row<object>) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
+                  {row.cells.map((cell:Cell<object, any>) => {
                     return (
                       <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                     )
@@ -154,12 +122,12 @@ export const Sorting = () => {
     []
   )
 
-  const data = React.useMemo(() => makeData(50), [])
+  const data = React.useMemo<string[]>(() => makeData(50), [])
 
   return (
-    <Styles>
+    <TableBasicStyles>
       <Table columns={columns} data={data} />
-    </Styles>
+    </TableBasicStyles>
   )
 }
 

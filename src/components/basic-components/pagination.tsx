@@ -1,43 +1,14 @@
 /**
- * A basic example of usePagination implementation for having a defined number of rows.
- * Template coming from tannerlisley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/pagination/src 
+ * React Table library example of pagination feature implemented in TypeScript.
+ * JS basic input examples are coming from tannerlinsley's repo: https://github.com/tannerlinsley/react-table/tree/master/examples/pagination
  */
 
 import React from 'react'
-import styled from 'styled-components'
-import { useTable, usePagination } from 'react-table'
-  
+import { useTable, usePagination, Column, HeaderGroup, Row, Cell } from 'react-table'
+import { TableBasicStyles } from '../../shared/types-interfaces-styles'
 import makeData from '../makeData'
 
-const Styles = styled.div`
-  padding: 1rem;
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-  .pagination {
-    padding: 0.5rem;
-  }
-`
-// TBD: change the any type from columns and data
-function Table({ columns, data }:{columns:any, data:any}) {
+const Table = ({ columns, data }:{ columns:Column[], data:string[] }) => {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -69,37 +40,22 @@ function Table({ columns, data }:{columns:any, data:any}) {
   // Render the UI for your table
   return (
     <>
-      <pre>
-        <code>
-          {JSON.stringify(
-            {
-              pageIndex,
-              pageSize,
-              pageCount,
-              canNextPage,
-              canPreviousPage,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
+          {headerGroups.map((headerGroup:HeaderGroup<object>) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column:HeaderGroup<object>) => (
                 <th {...column.getHeaderProps()}>{column.render('Header')}</th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
+          {page.map((row:Row<object>) => {
             prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
+                {row.cells.map((cell:Cell<object, any>) => {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
@@ -148,9 +104,9 @@ function Table({ columns, data }:{columns:any, data:any}) {
             setPageSize(Number(e.target.value))
           }}
         >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+          {[10, 20, 30, 40, 50].map((pageSizeNo:number) => (
+            <option key={pageSizeNo} value={pageSizeNo}>
+              Show {pageSizeNo}
             </option>
           ))}
         </select>
@@ -200,11 +156,11 @@ export const Pagination =  () => {
     []
   )
 
-  const data = React.useMemo(() => makeData(100), [])
+  const data:string[] = React.useMemo<string[]>(() => makeData(50), []);
 
   return (
-    <Styles>
+    <TableBasicStyles>
       <Table columns={columns} data={data} />
-    </Styles>
+    </TableBasicStyles>
   )
 }

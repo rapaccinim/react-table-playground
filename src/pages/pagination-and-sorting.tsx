@@ -1,51 +1,16 @@
 /**
- * A custom example with pagination + sorting implementation
+ * React Table library example of a custom mix of pagination and sorting features implemented in TypeScript.
  */
 
 import React from 'react';
-import styled from 'styled-components';
-import { useTable, usePagination, useSortBy } from 'react-table';
+import { useTable, usePagination, useSortBy, Column, HeaderGroup, Row, Cell } from 'react-table';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import makeData from '../components/makeData';
-
-const Styles = styled.div`
-  padding: 1rem;
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      :last-child {
-        border-right: 0;
-      }
-      span {
-        display: inline-block;
-        vertical-align: middle;
-        svg {
-            vertical-align: middle;
-          }
-      }
-    }
-  }
-  .pagination {
-    padding: 0.5rem;
-  }
-`;
+import { TableBasicStyles } from '../shared/types-interfaces-styles';
 
 // TBD: change the any type from columns and data
-function Table({ columns, data }: { columns: any, data: any }) {
+const Table = ({ columns, data }: { columns: Column[], data: string[] }) => {
     // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
@@ -110,9 +75,9 @@ function Table({ columns, data }: { columns: any, data: any }) {
             </div>
             <table {...getTableProps()}>
                 <thead>
-                    {headerGroups.map(headerGroup => (
+                    {headerGroups.map((headerGroup:HeaderGroup<object>) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
+                            {headerGroup.headers.map((column:HeaderGroup<object>) => (
                                 // Add the sorting props to control sorting. For this example
                                 // we can add them into the header props
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
@@ -131,11 +96,11 @@ function Table({ columns, data }: { columns: any, data: any }) {
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {page.map((row, i) => {
+                    {page.map((row:Row<object>) => {
                         prepareRow(row)
                         return (
                             <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
+                                {row.cells.map((cell:Cell<object, any>) => {
                                     return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
                             </tr>
@@ -180,11 +145,11 @@ export const PaginationAndSorting = () => {
         []
     )
 
-    const data = React.useMemo(() => makeData(100), [])
+    const data:string[] = React.useMemo<string[]>(() => makeData(50), []);
 
     return (
-        <Styles>
+        <TableBasicStyles>
             <Table columns={columns} data={data} />
-        </Styles>
+        </TableBasicStyles>
     )
 }

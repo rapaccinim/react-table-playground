@@ -30,7 +30,7 @@ const newPerson = () => {
   }
 }
 
-export default function makeData(...lens:any) {
+const makeData = (...lens:any) => {
   const makeDataLevel = (depth = 0):any => {
     const len = lens[depth]
     return range(len).map(d => {
@@ -43,3 +43,5 @@ export default function makeData(...lens:any) {
 
   return makeDataLevel()
 }
+
+export default makeData;
